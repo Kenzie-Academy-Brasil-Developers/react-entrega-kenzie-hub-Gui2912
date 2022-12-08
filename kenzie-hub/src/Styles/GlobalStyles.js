@@ -66,6 +66,8 @@ export const GlobalStyles = createGlobalStyle`
       margin: 25px 0;
     }
 
+    .white{color: white;}
+
     .link-button-register{
       text-decoration: none;
       padding: 10px;

@@ -2,45 +2,58 @@ import React from 'react';
 import Container from '../../components/Container/Container';
 import Form from '../../components/Form/Form';
 import Buttons from '../../components/Buttons/Buttons';
-import { StyledInput, StyledLabel, StyledSelect } from '../../components/Form/StyledForm';
+import {
+  StyledInput,
+  StyledLabel,
+  StyledSelect,
+} from '../../components/Form/StyledForm';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-// import axios from 'axios';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../imgs/Logo.svg';
+import { api } from '../../services/api';
+import { formSchemaRegister } from '../../validators/schemas';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
-  const formSchema = yup.object().shape({
-    name: yup.string().required('Este campo é obrigatório'),
-    email: yup.string().required('Este campo é obrigatório'),
-    password: yup.string().required('Este campo é obrigatório'),
-    confirmPassword: yup
-      .string()
-      .required('Este campo é obrigatório')
-      .oneOf([yup.ref('password')], 'As senhas devem ser as mesmas'),
-    bio: yup.string().required('Este campo é obrigatório'),
-    contact: yup.string().required('Este campo é obrigatório'),
-    course_module: yup.string().required('Este campo é obrigatório'),
-  });
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(formSchema),
+    resolver: yupResolver(formSchemaRegister),
   });
 
   const onSubmitFunction = (data) => {
-    console.log(data);
-    axios
-      .post('https://kenziehub.herokuapp.com/users', {data}, {
-        headers: { 'content-type': 'application/json' },
+    const dataUser = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      bio: data.bio,
+      contact: data.contact,
+      course_module: data.course_module,
+    };
+    console.log(dataUser);
+
+    api
+      .post('users', { ...dataUser })
+      .then(() => {
+        toast.success('Conta registrada com sucesso !', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000,
+          theme: 'light',
+        });
+        navigate('/');
       })
-      .then((response) => console.log(response.data))
-      .catch((error) => console.log(error));
+      .catch(() =>
+        toast.error('Algo deu errado, tente novamente', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000,
+          theme: 'light',
+        })
+      );
   };
 
   return (
@@ -103,16 +116,28 @@ const Register = () => {
         {errors.contact && errors.contact.message}
 
         <StyledLabel htmlFor="course_module">Selecionar Módulo</StyledLabel>
-        <StyledSelect
-          {...register('course_module')}
-        >
-          <option disabled value="">Selecione o módulo</option>
-          <option value="1º Módulo (Frontend iniciante)">1º Módulo (Frontend iniciante)</option>
-          <option value="2º Módulo (Frontend avançado)">2º Módulo (Frontend avançado)</option>
-          <option value="3º Módulo (Frontend avançado)">3º Módulo (Frontend avançado)</option>
-          <option value="4º Módulo (Backend iniciante)">4º Módulo (Backend iniciante)</option>
-          <option value="5º Módulo (Backend avançado)">5º Módulo (Backend avançado)</option>
-          <option value="6º Módulo (Backend avançado)">6º Módulo (Backend avançado)</option>
+        <StyledSelect {...register('course_module')}>
+          <option disabled value="">
+            Selecione o módulo
+          </option>
+          <option value="1º Módulo (Frontend iniciante)">
+            1º Módulo (Frontend iniciante)
+          </option>
+          <option value="2º Módulo (Frontend avançado)">
+            2º Módulo (Frontend avançado)
+          </option>
+          <option value="3º Módulo (Frontend avançado)">
+            3º Módulo (Frontend avançado)
+          </option>
+          <option value="4º Módulo (Backend iniciante)">
+            4º Módulo (Backend iniciante)
+          </option>
+          <option value="5º Módulo (Backend avançado)">
+            5º Módulo (Backend avançado)
+          </option>
+          <option value="6º Módulo (Backend avançado)">
+            6º Módulo (Backend avançado)
+          </option>
         </StyledSelect>
         {errors.course_module && errors.course_module.message}
 

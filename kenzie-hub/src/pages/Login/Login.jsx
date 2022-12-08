@@ -1,43 +1,48 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Buttons from '../../components/Buttons/Buttons';
 import Container from '../../components/Container/Container';
 import Form from '../../components/Form/Form';
 import { StyledInput, StyledLabel } from '../../components/Form/StyledForm';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import axios from 'axios';
 import logo from '../../imgs/Logo.svg';
+import { api } from '../../services/api';
+import { formSchemaLogin } from '../../validators/schemas';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
-  const formSchema = yup.object().shape({
-    email: yup.string().required('Este campo é obrigatório'),
-    password: yup.string().required('Este campo é obrigatório'),
-  });
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(formSchema),
+    resolver: yupResolver(formSchemaLogin),
   });
 
   const onSubmitFunction = (data) => {
     console.log(data);
-    axios
-      .post('https://kenziehub.herokuapp.com/sessions', data, {
-        headers: { 'content-type': 'application/json' },
+    api
+      .post('sessions', data)
+      .then((response) => {
+        toast.success('Login feito com sucesso!', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000,
+          theme: 'light',
+        });
+        window.localStorage.setItem('@Token', response.data.token);
+        window.localStorage.setItem('@userId', response.data.user.id);
+        navigate('/dashboard');
       })
-      .then((response) =>
-        window.localStorage.setItem(
-          '@Token',
-          JSON.stringify(response.data.token)
-        )
-      )
-
-      .catch((error) => console.log(error));
+      .catch(() =>
+        toast.error('Algo deu errado, verifique se o email e senha estão corretos', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000,
+          theme: 'light',
+        })
+      );
   };
 
   return (
@@ -68,10 +73,7 @@ const Login = () => {
         />
         {errors.password && errors.password.message}
 
-        <Buttons
-          className="mg-botton20"
-          type="submit"
-        >
+        <Buttons className="mg-botton20" type="submit">
           Entrar
         </Buttons>
 
