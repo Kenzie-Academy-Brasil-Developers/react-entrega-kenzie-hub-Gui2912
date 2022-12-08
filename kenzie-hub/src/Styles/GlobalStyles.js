@@ -44,7 +44,10 @@ export const GlobalStyles = createGlobalStyle`
     .text-start{text-align: start;}
     .text-center{text-align: center;}
     .p-0{padding: 0;}
+    .p-40{padding: 40px 0}
     .mg-auto{margin: 0 auto}
+    .mg-20{margin: 20px 0}
+    .w-100{width: 100%}
 
 
     .justify-content-center{justify-content: center;}
@@ -69,5 +72,19 @@ export const GlobalStyles = createGlobalStyle`
       border-radius: 4px;
       color: white;
       background-color: var(--gray3);
+    }
+
+    .link-button-login{
+      text-decoration: none;
+      width: 100%;
+      padding: 15px;
+      border-radius: 4px;
+      color: var(--gray4);
+      background-color: var(--gray0);
+      text-align: center;
+    }
+
+    .mg-botton20{
+      margin-bottom: 20px;
     }
 `;
