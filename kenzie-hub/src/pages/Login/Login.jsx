@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Buttons from '../../components/Buttons/Buttons';
 import Container from '../../components/Container/Container';
 import Form from '../../components/Form/Form';
@@ -40,17 +40,6 @@ const Login = () => {
       .catch((error) => console.log(error));
   };
 
-  const token = localStorage.getItem('@Token');
-  console.log(token);
-
-  const navigateToDashboard = (event) => {
-    if (token === null) {
-      event.preventDefault();
-    } else {
-      return redirect('/dashboard');
-    }
-  };
-
   return (
     <Container className="d-flex align-items-center justify-content-center flex-column">
       <div className="d-flex justify-content-between">
@@ -82,7 +71,6 @@ const Login = () => {
         <Buttons
           className="mg-botton20"
           type="submit"
-          onClick={navigateToDashboard}
         >
           Entrar
         </Buttons>

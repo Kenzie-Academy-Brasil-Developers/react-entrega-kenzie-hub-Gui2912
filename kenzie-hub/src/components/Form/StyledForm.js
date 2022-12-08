@@ -12,12 +12,12 @@ export const StyledForm = styled.form`
     margin-bottom: 20px;
   }
 
-  p{
+  p {
     color: var(--gray1);
     margin-bottom: 20px;
   }
 
-  button{
+  button {
     width: 100%;
     color: var(--gray0);
     font-size: 1rem;
@@ -47,4 +47,25 @@ export const StyledLabel = styled.label`
   color: var(--gray0);
   width: 100%;
   margin-bottom: 20px;
+`;
+
+export const StyledSelect = styled.select`
+  height: 44px;
+  background-color: var(--gray2);
+  color: var(--gray1);
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid var(--gray2);
+  font-size: 1rem;
+  padding: 10.5px 16px;
+  margin-bottom: 20px;
+
+  :focus {
+    border-color: var(--gray0);
+    outline: none;
+  }
+
+  :hover{
+    cursor: pointer;
+  }
 `;
