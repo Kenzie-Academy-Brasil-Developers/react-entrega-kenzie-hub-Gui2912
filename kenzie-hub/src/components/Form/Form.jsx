@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyledForm } from './StyledForm'
 
-const Form = ({children, className}) => {
+const Form = ({children, className, onSubmit}) => {
   return (
-    <StyledForm className={className}>
+    <StyledForm onSubmit={onSubmit} className={className}>
       {children}
     </StyledForm>
   )

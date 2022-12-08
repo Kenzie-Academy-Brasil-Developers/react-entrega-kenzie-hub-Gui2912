@@ -9,7 +9,7 @@ const RoutesMain = () => {
   return (
     <Routes>
       <Route path='/register' element={<Register/>}/>
-      <Route path='/login' element={<Login/>}/>
+      <Route path='/' element={<Login/>}/>
       <Route path='/dashboard' element={<Dashboard/>}/>
       <Route path='*' element={<NotFound/>}/>
 

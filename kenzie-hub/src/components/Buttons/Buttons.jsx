@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyledButton } from './StyledButton'
 
-const Buttons = ({children}) => {
+const Buttons = ({children, type}) => {
   return (
-    <StyledButton>{children}</StyledButton>
+    <StyledButton type={type}>{children}</StyledButton>
   )
 }
 

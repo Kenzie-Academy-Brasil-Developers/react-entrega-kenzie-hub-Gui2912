@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledForm = styled.form`
   max-width: 370px;
@@ -6,7 +6,24 @@ export const StyledForm = styled.form`
   padding: 2.625rem 1.0625rem 2.625rem 1.375rem;
   background-color: var(--gray3);
   border-radius: 4px;
-`
+
+  h2 {
+    color: var(--gray0);
+    margin-bottom: 20px;
+  }
+
+  p{
+    color: var(--gray1);
+    margin-bottom: 20px;
+  }
+
+  button{
+    width: 100%;
+    color: var(--gray0);
+    font-size: 1rem;
+    height: 48px;
+  }
+`;
 
 export const StyledInput = styled.input`
   height: 44px;
@@ -19,15 +36,15 @@ export const StyledInput = styled.input`
   padding: 10.5px 16px;
   margin-bottom: 20px;
 
-  :focus{
+  :focus {
     border-color: var(--gray0);
     outline: none;
   }
-`
+`;
 
 export const StyledLabel = styled.label`
   justify-self: start;
   color: var(--gray0);
   width: 100%;
   margin-bottom: 20px;
-`
+`;

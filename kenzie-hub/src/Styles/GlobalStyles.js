@@ -56,4 +56,18 @@ export const GlobalStyles = createGlobalStyle`
     .wrap{flex-wrap: wrap;}
     .flex-column{flex-direction: column;}
     .flex-row{flex-direction: row;}
+
+    .div{
+      max-width: 370px;
+      width:100%;
+      margin: 25px 0;
+    }
+
+    .link-button-register{
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 4px;
+      color: white;
+      background-color: var(--gray3);
+    }
 `;
