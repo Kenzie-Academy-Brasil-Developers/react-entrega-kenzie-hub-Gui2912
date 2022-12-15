@@ -48,6 +48,8 @@ export const GlobalStyles = createGlobalStyle`
     .mg-auto{margin: 0 auto}
     .mg-20{margin: 20px 0}
     .w-100{width: 100%}
+    .w-65{width: 65%!important}
+    .w-30{width: 30%!important}
 
 
     .justify-content-center{justify-content: center;}

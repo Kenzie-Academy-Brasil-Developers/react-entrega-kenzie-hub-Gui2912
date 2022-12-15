@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { GlobalStyles } from './Styles/GlobalStyles';
 import { ToastContainer } from 'react-toastify';
+import { ModalProvider } from './providers/ShowModal/ShowModal';
+import Providers from './providers/Providers';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,7 +24,9 @@ root.render(
     />
     <ToastContainer />
     <GlobalStyles />
-    <App />
+    <Providers>
+      <App />
+    </Providers>
   </BrowserRouter>
 );
 

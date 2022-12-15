@@ -20,3 +20,9 @@ export const StyledContainerContent = styled.div`
     color: var(--gray2);
   }
 `
+
+export const StyledContainerDashboard = styled.div`
+  max-width: 750px;
+  width: 100%;
+  background-color: var(--gray4);
+`

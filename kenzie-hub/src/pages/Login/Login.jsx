@@ -7,9 +7,8 @@ import { StyledInput, StyledLabel } from '../../components/Form/StyledForm';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import logo from '../../imgs/Logo.svg';
-import { api } from '../../services/api';
+import {  postRequestsAxios } from '../../services/api';
 import { formSchemaLogin } from '../../validators/schemas';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
@@ -24,25 +23,7 @@ const Login = () => {
 
   const onSubmitFunction = (data) => {
     console.log(data);
-    api
-      .post('sessions', data)
-      .then((response) => {
-        toast.success('Login feito com sucesso!', {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 2000,
-          theme: 'light',
-        });
-        window.localStorage.setItem('@Token', response.data.token);
-        window.localStorage.setItem('@userId', response.data.user.id);
-        navigate('/dashboard');
-      })
-      .catch(() =>
-        toast.error('Algo deu errado, verifique se o email e senha estão corretos', {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 2000,
-          theme: 'light',
-        })
-      );
+    postRequestsAxios.loginRequest(data, navigate)
   };
 
   return (

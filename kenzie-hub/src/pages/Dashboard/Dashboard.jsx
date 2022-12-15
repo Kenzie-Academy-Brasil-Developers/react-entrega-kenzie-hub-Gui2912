@@ -1,55 +1,56 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import Buttons from '../../components/Buttons/Buttons';
+import { StyledAddTech } from '../../components/Buttons/StyledButton';
 import Container from '../../components/Container/Container';
-import { StyledContainerContent } from '../../components/Container/StyledContainer';
+import {
+  StyledContainerContent,
+  StyledContainerDashboard,
+} from '../../components/Container/StyledContainer';
+import { StyledTechCard } from '../../components/TechCards/StyledTechCards';
+import TechCards from '../../components/TechCards/TechCards';
 import logo from '../../imgs/Logo.svg';
-import { api } from '../../services/api';
+import RegisterTech from '../../components/Modal/RegisterTech/RegisterTech';
+import { useContext } from 'react';
+import { ModalContext } from '../../providers/ShowModal/ShowModal';
+import TechDetails from '../../components/Modal/TechDetails/TechDetails';
+import { TechContext } from '../../providers/Techs/Techs';
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const [userData, setUserData] = useState('')
+  const { showModal, handleModal, showTechDetails, handleModalTechDetails } =
+    useContext(ModalContext);
 
-
-  const exit = () => {
-    window.localStorage.clear();
-    navigate('/');
-  };
-
-  const userId = window.localStorage.getItem('@userId');
-
-   useEffect(() => {
-    async function apiData() {
-      try {
-        const request = await api.get(`users/${userId}`);
-
-        setUserData(request.data);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    apiData();
-  }, []);
+  const { userData, userTechs, exit } = useContext(TechContext);
 
   return (
     <Container className="d-flex justify-content-center">
       <StyledContainerContent>
-        <div className="w-100 d-flex justify-content-between mg-20">
+        {showModal && <RegisterTech />}
+        {showTechDetails && <TechDetails />}
+
+        <StyledContainerDashboard className="w-100 d-flex justify-content-between mg-20">
           <img src={logo} alt="Kenzie Hub" />
           <Buttons type="button" onClick={exit}>
             Sair
           </Buttons>
-        </div>
-        <div className="w-100 d-flex justify-content-between mg-20 p-40">
+        </StyledContainerDashboard>
+        <StyledContainerDashboard className="w-100 d-flex justify-content-between mg-20 p-40">
           <h3>{userData.name}</h3>
-          <span className='white'>{userData.course_module}</span>
-        </div>
-        <div className="w-100">
-          <h2 className="mg-20">Que pena! Estamos em desenvolvimento :( </h2>
-          <p>
-            Nossa aplicação está em desenvolvimento, em breve teremos novidades
-          </p>
-        </div>
+          <span className="white">{userData.course_module}</span>
+        </StyledContainerDashboard>
+        <StyledContainerDashboard className="mg-20 d-flex align-items-center justify-content-between">
+          <h2>Tecnologias</h2>
+          <StyledAddTech onClick={handleModal}>+</StyledAddTech>
+        </StyledContainerDashboard>
+        <TechCards>
+          {userTechs.map((element) => {
+            return (
+              <StyledTechCard key={element.id} onClick={() => handleModalTechDetails(element)}>
+                <h2>{element.title}</h2>
+                <p>{element.status}</p>
+              </StyledTechCard>
+            );
+          })}
+        </TechCards>
       </StyledContainerContent>
     </Container>
   );
