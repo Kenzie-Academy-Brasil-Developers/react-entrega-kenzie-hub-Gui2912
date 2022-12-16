@@ -13,7 +13,7 @@ export const TechProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const {userToken, userId, userDataApi} = useContext(UserContext)
-
+  //x
   // function atuInfos() {
   //    const token = localStorage.getItem('@myHub:TOKEN') 
   //    api.defaults.headers.authorization = `Bearer ${token}` 
