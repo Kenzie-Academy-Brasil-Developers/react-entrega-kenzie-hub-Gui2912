@@ -19,7 +19,7 @@ export const TechProvider = ({ children }) => {
   //    api.defaults.headers.authorization = `Bearer ${token}` 
   //       api
   //       .get('profile')      
-  //       .then(res => setInfos([...infos, res.data.techs]))   
+  //       .thxen(res => setInfos([...infos, res.data.techs]))   
   // }
 
   useEffect(() => {
